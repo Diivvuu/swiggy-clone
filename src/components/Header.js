@@ -22,17 +22,27 @@ const Header = () => {
 
   return (
     <div>
-      <div className="absolute w-screen h-24 bg-[#edf7f9]">
+      <>
         <div>
-          <img className="w-24 h-24 pl-4" src={logo} />
+          {locationsearchIsVisible && (
+            <LocationSearch
+              childState={locationsearchIsVisible}
+              setChildState={setLocationSearchIsVisible}
+            />
+          )}
         </div>
-        <div onClick={() => handleLocationClick()}>
-          <h2 title={area + ", " + city + ", " + state}>
-            <span>Other</span>
-            {area + ", " + city + ", " + state}
-          </h2>
+        <div className="absolute w-screen h-24 bg-[#edf7f9]">
+          <div>
+            <img className="w-24 h-24 pl-4" src={logo} />
+          </div>
+          <div onClick={() => handleLocationClick()}>
+            <h2 title={area + ", " + city + ", " + state}>
+              <span>Other</span>
+              {area + ", " + city + ", " + state}
+            </h2>
+          </div>
         </div>
-      </div>
+      </>
     </div>
   );
 };

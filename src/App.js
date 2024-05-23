@@ -6,7 +6,7 @@ import LocationSearch from "./components/LocationSearch";
 function App() {
   return (
     <Provider store={store}>
-      <LocationSearch />
+      <Header />
     </Provider>
   );
 }
