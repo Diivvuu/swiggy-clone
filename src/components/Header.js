@@ -53,7 +53,7 @@ const Header = () => {
         }}
       >
         <div className="max-w-[25%] flex items-center gap-2">
-          <img className="w-24 h-24 pl-4" src={logo} />
+          <img className="w-24 h-24 pl-4" src={logo} alt="logo" />
           <div
             className="cursor-pointer flex truncate self-center"
             onClick={() => handleLocationClick()}
@@ -62,7 +62,7 @@ const Header = () => {
               className="text-sm truncate"
               title={area + ", " + city + ", " + state}
             >
-              <span className="text-md mr-1 leading-4 tracking-tight font-semibold border-b border-black hover:text-orange-500">
+              <span className="text-md mr-1 leading tracking-tight font-bold border-b border-black hover:text-orange-500">
                 Other
               </span>
 
@@ -72,8 +72,16 @@ const Header = () => {
           </div>
         </div>
         <>
-          <ul>
-            <li></li>
+          <ul className="list-none flex">
+            <li>
+              <h2>Search</h2>
+            </li>
+            <li>
+              <h2>Help</h2>
+            </li>
+            <li>
+              <h2>Sign In</h2>
+            </li>
           </ul>
         </>
       </div>
