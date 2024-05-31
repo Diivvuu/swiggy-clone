@@ -41,7 +41,7 @@ const Header = () => {
         )}
       </div>
       <div
-        className={`header flex items-center justify-around z-10 fixed w-screen bg-[#edf7f9] ${
+        className={`header flex items-center justify-around z-10 w-screen bg-[#edf7f9] ${
           locationsearchIsVisible ? "opacity-50 bg-transparent" : ""
         }`}
         onClick={() => {

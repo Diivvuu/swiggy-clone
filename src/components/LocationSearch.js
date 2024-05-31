@@ -9,31 +9,48 @@ const LocationSearch = ({ childState, setChildState }) => {
   const [searchText, setSearchText] = useState("");
   const [locData, setLocData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
   const dispatch = useDispatch();
+
   async function getLocation() {
     setIsLoading(true);
-    const data = await fetch(GET_LOCATION_API_URL + searchText, {
-      method: "GET",
-      headers: {
-        "X-RapidAPI-Key": `${apiKey}`,
-        "X-RapidAPI-Host":
-          "india-pincode-with-latitude-and-longitude.p.rapidapi.com",
-      },
-    });
-    const json = await data.json();
-    setIsLoading(false);
-    if (json.length === 0) {
-      setLocData(["noresults"]);
-    } else {
-      setLocData(json);
+    setError(null); // Reset error state
+    try {
+      const response = await fetch(GET_LOCATION_API_URL + searchText, {
+        method: "GET",
+        headers: {
+          "X-RapidAPI-Key": apiKey,
+          "X-RapidAPI-Host":
+            "india-pincode-with-latitude-and-longitude.p.rapidapi.com",
+        },
+      });
+
+      if (!response.ok) {
+        // Handle non-200 HTTP responses
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const json = await response.json();
+      if (Array.isArray(json) && json.length === 0) {
+        setLocData(["noresults"]);
+      } else {
+        setLocData(json);
+      }
+    } catch (error) {
+      console.error("Error fetching location data:", error);
+      setError("Invalid pincode. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   }
+
   const handleChildState = () => {
     setChildState(false);
     dispatch(locSearch(false));
     setSearchText("");
     document.body.style.overflow = "unset";
   };
+
   const handleSubmit = (index) => {
     dispatch(updateLocation([locData[index]]));
     setChildState(false);
@@ -45,6 +62,7 @@ const LocationSearch = ({ childState, setChildState }) => {
       behavior: "smooth",
     });
   };
+
   const handleKeyPress = (event) => {
     if (
       (typeof Number(searchText) === "number" && searchText.length === 6) ||
@@ -53,6 +71,7 @@ const LocationSearch = ({ childState, setChildState }) => {
       getLocation();
     }
   };
+
   return (
     <div className="slide-in z-50 min-h-[100vh-80px] flex">
       <div
@@ -100,40 +119,49 @@ const LocationSearch = ({ childState, setChildState }) => {
           </div>
           <div className="container-snap max-h-[calc(100vh-100px)] overflow-y-auto">
             {isLoading ? (
-              <div className="flex flex-col p-6  items-center justify-center">
+              <div className="flex flex-col p-6 items-center justify-center">
                 <div className="loading-spinner" />
                 <h2>Loading</h2>
               </div>
+            ) : error ? (
+              <div className="text-center">
+                <img
+                  src={locationUnservicable}
+                  alt="locationUnservicable"
+                  className="h-48 mx-auto my-10"
+                />
+                <h2 className="text-xl font-bold tracking-tight text-[#282c3f]">
+                  {error}
+                </h2>
+              </div>
             ) : locData && locData[0] !== "noresults" ? (
-              locData?.map((x, index) => {
-                return (
-                  <div
-                    className="flex p-6 mx-auto cursor-pointer border-b border-dashed"
-                    key={index}
-                    onClick={() => handleSubmit(index)}
+              locData?.map((x, index) => (
+                <div
+                  className="flex p-6 mx-auto cursor-pointer border-b border-dashed"
+                  key={index}
+                  onClick={() => handleSubmit(index)}
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="#535665"
+                    className="w-5 h-5 mt-1"
                   >
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="#535665"
-                      className="w-5 h-5 mt-1"
-                    >
-                      <path d="M12 13.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
-                      <path
-                        fillRule="evenodd"
-                        d="M19.071 3.429C15.166-.476 8.834-.476 4.93 3.429c-3.905 3.905-3.905 10.237 0 14.142l.028.028 5.375 5.375a2.359 2.359 0 003.336 0l5.403-5.403c3.905-3.905 3.905-10.237 0-14.142zM5.99 4.489A8.5 8.5 0 0118.01 16.51l-5.403 5.404a.859.859 0 01-1.214 0l-5.378-5.378-.002-.002-.023-.024a8.5 8.5 0 010-12.02z"
-                      />
-                    </svg>
-                    <div className="flex-1 pl-2 flex-col w-full">
-                      <h1 className="text-[#282c3f] font-medium leading-3 text-base truncate py-2">
-                        {x.area}
-                      </h1>
-                      <h2 className="text-[#93959f] font-thin text-sm truncate">
-                        {x.district}, {x.state}
-                      </h2>
-                    </div>
+                    <path d="M12 13.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
+                    <path
+                      fillRule="evenodd"
+                      d="M19.071 3.429C15.166-.476 8.834-.476 4.93 3.429c-3.905 3.905-3.905 10.237 0 14.142l.028.028 5.375 5.375a2.359 2.359 0 003.336 0l5.403-5.403c3.905-3.905 3.905-10.237 0-14.142zM5.99 4.489A8.5 8.5 0 0118.01 16.51l-5.403 5.404a.859.859 0 01-1.214 0l-5.378-5.378-.002-.002-.023-.024a8.5 8.5 0 010-12.02z"
+                    />
+                  </svg>
+                  <div className="flex-1 pl-2 flex-col w-full">
+                    <h1 className="text-[#282c3f] font-medium leading-3 text-base truncate py-2">
+                      {x.area}
+                    </h1>
+                    <h2 className="text-[#93959f] font-thin text-sm truncate">
+                      {x.district}, {x.state}
+                    </h2>
                   </div>
-                );
-              })
+                </div>
+              ))
             ) : (
               <div className="text-center">
                 <img
