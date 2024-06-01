@@ -38,16 +38,16 @@ const Home = () => {
   return resList?.length === 0 ? (
     <h1>Shimmering</h1>
   ) : (
-    <div className="body xl:max-w-[80%] mx-auto min-h-screen pt-16 ">
+    <div className="body xl:max-w-[80%] mx-auto min-h-screen pt-8 ">
       {WOYM && (
         <>
-          <div className="flex justify-between mx-4 px-4">
-            <h1 className="font-bold text-3xl leading-3 tracking-tight">
+          <div className="flex justify-between mx-12 px-4">
+            <h1 className="font-bold text-[1.7rem] leading-3 tracking-tight">
               What's on your mind?
             </h1>
             <Slider className="foodCategory" amount={350} />
           </div>
-          <div className="foodCategory container-snap mx-16 flex p-4 overflow-x-auto">
+          <div className="foodCategory container-snap mx-12 flex p-4 overflow-x-auto">
             {WOYM.map((img) => {
               return (
                 <div
@@ -67,16 +67,16 @@ const Home = () => {
           </div>
         </>
       )}
-      <hr className="my-16"></hr>
+      <hr className="my-8"></hr>
       {topResList && (
         <>
-          <div className="flex justify-between items-center mx-4 px-4">
-            <h1 className="font-bold text-3xl leading-3 tracking-tight">
+          <div className="flex justify-between items-center mx-12 px-4">
+            <h1 className="font-bold text-[1.7rem] leading-3 tracking-tight">
               Top restaurant chains in {city}
             </h1>
             <Slider className="topResList" key="topResList" amount={450} />
           </div>
-          <div className="topResList container-snap flex mt-8 gap-x-8 overflow-x-auto">
+          <div className="topResList container-snap mx-4 p-4 flex mt-4 mb-2 overflow-x-auto">
             {topResList.map((res) => {
               return (
                 <RestaurantCard
