@@ -13,12 +13,13 @@ const RestaurantCard = ({
   cuisines,
 }) => {
   return (
-    <div className="cursor-pointer">
-      <div className="relative w-80 h-52">
+    <div className="cursor-pointer transition-all ease-in delay-100 hover:scale-90 hover:origin-center">
+      <div className="relative w-72 h-48">
         {cloudinaryImageId && (
           <img
             className="w-full h-full object-cover rounded-2xl"
             src={RES_CARD_IMG_CDN_URL + cloudinaryImageId}
+            alt={name}
           />
         )}
 
@@ -48,13 +49,10 @@ const RestaurantCard = ({
           {" • "}
           {sla.slaString}
         </div>
-        <div>
+        <div className="truncate w-64">
           <p>{cuisines.join(", ")}</p>
         </div>
       </div>
-      {/* <h1>{areaName}</h1> */}
-      {/* <h1>{avgRating}</h1> */}
-      {/* <h1>{name}</h1> */}
     </div>
   );
 };

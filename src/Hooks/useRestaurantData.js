@@ -166,6 +166,7 @@ const useRestaurantData = () => {
     sort,
     resList,
     filteredResList,
+    setFilteredResList,
     appInstallLinks,
     footerCities,
     bestPlaces,
