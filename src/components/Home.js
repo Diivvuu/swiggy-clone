@@ -90,6 +90,13 @@ const Home = () => {
   const handleLessPlaces = () => {
     setBestPlacesOpen(false);
   };
+  const handleMoreCui = () => {
+    setBestCuiOpen(true);
+  };
+
+  const handleLessCui = () => {
+    setBestCuiOpen(false);
+  };
 
   return resList?.length === 0 ? (
     <h1>Shimmering</h1>
@@ -241,20 +248,41 @@ const Home = () => {
           </div>
         </>
       )}
+
       {bestPlaces && (
         <>
-          {bestPlaces && (
-            <>
-              <hr className="my-8"></hr>
-              <div className="flex justify-between mx-12 px-4">
-                <h1 className="font-bold text-[1.7rem] leading-3 tracking-tight">
-                  Best Places to Eat Across Cities
-                </h1>
+          <hr className="my-8"></hr>
+          <div className="flex justify-between mx-12 px-4">
+            <h1 className="font-bold text-[1.7rem] leading-3 tracking-tight">
+              Best Places to Eat Across Cities
+            </h1>
+          </div>
+          <div className="flex flex-wrap gap-x-2 justify-between my-8">
+            {bestPlaces.slice(0, 11).map((x) => (
+              <div
+                className="w-[20%] flex-grow p-4 mx-2 mb-4 cursor-pointer border-[1px] border-solid border-[#02060c1f] rounded-xl transition-all ease-in delay-100 hover:bg-orange-100"
+                key={x.text}
+              >
+                <h2 className="truncate text-center text-base text-[#050e1bbf] tracking-tight font-medium">
+                  {x.text}
+                </h2>
               </div>
-              <div className="flex flex-wrap gap-x-2 justify-between my-8">
-                {bestPlaces.slice(0, 11).map((x) => (
+            ))}
+            {!bestPlacesOpen && (
+              <div
+                onClick={handleMorePlaces}
+                className="w-[20%] flex-grow p-4 mx-2 mb-4 cursor-pointer border-[1px] border-solid border-[#02060c1f] rounded-xl hover:bg-orange-500"
+              >
+                <h2 className="truncate text-center text-base text-[#050e1bbf] tracking-tight font-medium">
+                  Show more
+                </h2>
+              </div>
+            )}
+            {bestPlacesOpen && (
+              <>
+                {bestPlaces.slice(11).map((x) => (
                   <div
-                    className="w-[20%] flex-grow p-4 mx-2 mb-4 cursor-pointer border-[1px] border-solid border-[#02060c1f] rounded-xl transition-all ease-in delay-100 hover:bg-orange-100"
+                    className="w-[20%] flex-grow p-4 mx-2 mb-4 cursor-pointer border-[1px] border-solid border-[#02060c1f] rounded-xl"
                     key={x.text}
                   >
                     <h2 className="truncate text-center text-base text-[#050e1bbf] tracking-tight font-medium">
@@ -262,41 +290,72 @@ const Home = () => {
                     </h2>
                   </div>
                 ))}
-                {!bestPlacesOpen && (
+                <div
+                  onClick={handleLessPlaces}
+                  className="w-[20%] p-4 mx-auto mb-4 cursor-pointer border-[1px] border-solid border-[#02060c1f] rounded-xl hover:bg-orange-200"
+                >
+                  <h2 className="truncate text-center text-base text-[#050e1bbf] tracking-tight font-medium">
+                    Show less
+                  </h2>
+                </div>
+              </>
+            )}
+          </div>
+        </>
+      )}
+
+      {bestCuiNearMe && (
+        <>
+          <hr className="my-8"></hr>
+          <div className="flex justify-between mx-12 px-4">
+            <h1 className="font-bold text-[1.7rem] leading-3 tracking-tight">
+              Best Cuisines Near Me
+            </h1>
+          </div>
+          <div className="flex flex-wrap gap-x-2 justify-between my-8">
+            {bestCuiNearMe.slice(0, 11).map((x) => (
+              <div
+                className="w-[20%] flex-grow p-4 mx-2 mb-4 cursor-pointer border-[1px] border-solid border-[#02060c1f] rounded-xl transition-all ease-in delay-100 hover:bg-orange-100"
+                key={x.text}
+              >
+                <h2 className="truncate text-center text-base text-[#050e1bbf] tracking-tight font-medium">
+                  {x.text}
+                </h2>
+              </div>
+            ))}
+            {!bestCuiOpen && (
+              <div
+                onClick={handleMoreCui}
+                className="w-[20%] flex-grow p-4 mx-2 mb-4 cursor-pointer border-[1px] border-solid border-[#02060c1f] rounded-xl hover:bg-orange-500"
+              >
+                <h2 className="truncate text-center text-base text-[#050e1bbf] tracking-tight font-medium">
+                  Show more
+                </h2>
+              </div>
+            )}
+            {bestCuiOpen && (
+              <>
+                {bestCuiNearMe.slice(11).map((x) => (
                   <div
-                    onClick={handleMorePlaces}
-                    className="w-[20%] flex-grow p-4 mx-2 mb-4 cursor-pointer border-[1px] border-solid border-[#02060c1f] rounded-xl hover:bg-orange-500"
+                    className="w-[20%] flex-grow p-4 mx-2 mb-4 cursor-pointer border-[1px] border-solid border-[#02060c1f] rounded-xl"
+                    key={x.text}
                   >
                     <h2 className="truncate text-center text-base text-[#050e1bbf] tracking-tight font-medium">
-                      Show more
+                      {x.text}
                     </h2>
                   </div>
-                )}
-                {bestPlacesOpen && (
-                  <>
-                    {bestPlaces.slice(11).map((x) => (
-                      <div
-                        className="w-[20%] flex-grow p-4 mx-2 mb-4 cursor-pointer border-[1px] border-solid border-[#02060c1f] rounded-xl"
-                        key={x.text}
-                      >
-                        <h2 className="truncate text-center text-base text-[#050e1bbf] tracking-tight font-medium">
-                          {x.text}
-                        </h2>
-                      </div>
-                    ))}
-                    <div
-                      onClick={handleLessPlaces}
-                      className="w-[20%] p-4 mx-auto mb-4 cursor-pointer border-[1px] border-solid border-[#02060c1f] rounded-xl hover:bg-orange-200"
-                    >
-                      <h2 className="truncate text-center text-base text-[#050e1bbf] tracking-tight font-medium">
-                        Show less
-                      </h2>
-                    </div>
-                  </>
-                )}
-              </div>
-            </>
-          )}
+                ))}
+                <div
+                  onClick={handleLessCui}
+                  className="w-[20%] p-4 mx-auto mb-4 cursor-pointer border-[1px] border-solid border-[#02060c1f] rounded-xl hover:bg-orange-200"
+                >
+                  <h2 className="truncate text-center text-base text-[#050e1bbf] tracking-tight font-medium">
+                    Show less
+                  </h2>
+                </div>
+              </>
+            )}
+          </div>
         </>
       )}
     </div>
