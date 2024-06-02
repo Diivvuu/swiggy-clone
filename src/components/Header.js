@@ -5,6 +5,7 @@ import logo from "../assets/logo.jpeg";
 import LocationSearch from "./LocationSearch";
 import { useDispatch, useSelector } from "react-redux";
 import { locSearch } from "../Utils/locationSearchVisibilitySlice";
+import { Link, NavLink } from "react-router-dom";
 const Header = () => {
   const dispatch = useDispatch();
   const locDetails = useSelector((store) => store.location.locationDetails);
@@ -41,7 +42,7 @@ const Header = () => {
         )}
       </div>
       <div
-        className={`header flex items-center justify-around z-10 w-screen bg-[#edf7f9] ${
+        className={`header flex items-center justify-around z-10 fixed w-screen bg-[#edf7f9] ${
           locationsearchIsVisible ? "opacity-50 bg-transparent" : ""
         }`}
         onClick={() => {
@@ -53,7 +54,9 @@ const Header = () => {
         }}
       >
         <div className="max-w-[25%] flex items-center gap-2">
-          <img className="w-24 h-24 pl-4" src={logo} alt="logo" />
+          <Link to="/">
+            <img className="w-24 h-24 pl-4" src={logo} alt="CHEF-2-DOOR logo" />
+          </Link>
           <div
             className="cursor-pointer flex truncate self-center"
             onClick={() => handleLocationClick()}
@@ -73,13 +76,13 @@ const Header = () => {
         </div>
         <>
           <ul className="list-none flex">
-            <li>
+            <li key="search">
               <h2>Search</h2>
             </li>
-            <li>
+            <li key="help">
               <h2>Help</h2>
             </li>
-            <li>
+            <li key="sign in">
               <h2>Sign In</h2>
             </li>
           </ul>

@@ -16,4 +16,36 @@ export const ITEM_API =
 //   'https://png.pngtree.com/png-vector/20230217/ourmid/pngtree-food-logo-design-for-restaurant-and-business-png-image_6604922.png';
 export const WOYM_CARD_IMG_CDN_URL =
   "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_288,h_360/";
-export const RES_CARD_IMG_CDN_URL = "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/"
+export const RES_CARD_IMG_CDN_URL =
+  "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/";
+export const APP_IMG_CDN_URL =
+  "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/";
+export const footer_content = [
+  {
+    id: "100",
+    title: "Company",
+    data: [
+      "About",
+      "Careers",
+      "Team",
+      "Chef-2-Door One",
+      "Chef-2-Door Instamart",
+      "Chef-2-Door Genie",
+    ],
+  },
+  {
+    id: "101",
+    title: "Contact Us",
+    data: ["Help & Support", "Partner with us", "Ride with us"],
+  },
+  {
+    id: "102",
+    title: "Legal",
+    data: [
+      "Terms & Conditions",
+      "Cookie Policy",
+      "Privacy Policy",
+      "Investor Relations",
+    ],
+  },
+];

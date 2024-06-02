@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import store from "./Utils/store";
 import Home from "./components/Home";
 import Contact from "./components/Contact";
+import Footer from "./components/Footer";
 
 const AppLayout = () => {
   return (
