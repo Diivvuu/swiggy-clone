@@ -29,9 +29,11 @@ const Home = () => {
   const locationSearchVisibility = useSelector(
     (store) => store.locSearch.visible
   );
-  console.log(filteredResList);
+  console.log(bestCuiNearMe);
   const [city, setCity] = useState(locDetails[0]?.district);
   const [sortActive, setSortActive] = useState(undefined);
+  const [bestPlacesOpen, setBestPlacesOpen] = useState(false);
+  const [bestCuiOpen, setBestCuiOpen] = useState(false);
 
   // useEffect to update city and sorting buttons when locDetails change
   useEffect(() => {
@@ -79,6 +81,14 @@ const Home = () => {
         setfilteredResList(sortedList);
       }
     }
+  };
+
+  const handleMorePlaces = () => {
+    setBestPlacesOpen(true);
+  };
+
+  const handleLessPlaces = () => {
+    setBestPlacesOpen(false);
   };
 
   return resList?.length === 0 ? (
@@ -141,23 +151,23 @@ const Home = () => {
       {filteredResList && (
         <>
           <div className="mx-8">
-            <div className="mt-8 mb-4 ml-4 pl-2">
-              <h1 className="text-2xl h-fit leading-5 tracking-tighter font-extrabold truncate">
+            <div className="my-8 mb-4 pl-2 ">
+              <h1 className="font-bold text-[1.7rem] my-12 leading-3 tracking-tight">
                 Restaurants with online food delivery in {city}
               </h1>
             </div>
-            <div className="container-snap flex mx-4 mb-4 w-full overflow-auto">
+            <div className="container-snap flex items-center mx-16 mb-4 w-full overflow-auto">
               <div
                 className={`px-3 py-2 mr-3 min-w-fit rounded-full transition-all duration-100 ease-in delay-0 ${
                   sortActive !== undefined
-                    ? "bg-[#02060c26] border-[#36393e] border-[1px]"
+                    ? "bg-[#02060c26] border-[orange] border-[1px]"
                     : "border-[1px] border-solid border-[#02060c1f]"
                 }`}
               >
                 <h1
                   className={`text-center flex-1 text-base tracking-tight font-medium whitespace-nowrap ${
                     sortActive !== undefined
-                      ? "text-orange"
+                      ? "text-orange-500"
                       : "text-[#050e1bbf]"
                   }`}
                 >
@@ -198,7 +208,7 @@ const Home = () => {
                     onClick={() => handleSortClick(x.title)}
                     className={`container-snap flex justify-between items-center min-w-fit truncate px-3 cursor-pointer rounded-full mr-2 mb-2 ${
                       sortActive === x.title
-                        ? "bg-[#02060c26] border-[#36393e] border-[1px]"
+                        ? "bg-orange-200 border-[orange] border-[1px]"
                         : "border-[1px] border-solid border-[#02060c1f]"
                     } `}
                   >
@@ -229,6 +239,64 @@ const Home = () => {
               })}
             </div>
           </div>
+        </>
+      )}
+      {bestPlaces && (
+        <>
+          {bestPlaces && (
+            <>
+              <hr className="my-8"></hr>
+              <div className="flex justify-between mx-12 px-4">
+                <h1 className="font-bold text-[1.7rem] leading-3 tracking-tight">
+                  Best Places to Eat Across Cities
+                </h1>
+              </div>
+              <div className="flex flex-wrap gap-x-2 justify-between my-8">
+                {bestPlaces.slice(0, 11).map((x) => (
+                  <div
+                    className="w-[20%] flex-grow p-4 mx-2 mb-4 cursor-pointer border-[1px] border-solid border-[#02060c1f] rounded-xl transition-all ease-in delay-100 hover:bg-orange-100"
+                    key={x.text}
+                  >
+                    <h2 className="truncate text-center text-base text-[#050e1bbf] tracking-tight font-medium">
+                      {x.text}
+                    </h2>
+                  </div>
+                ))}
+                {!bestPlacesOpen && (
+                  <div
+                    onClick={handleMorePlaces}
+                    className="w-[20%] flex-grow p-4 mx-2 mb-4 cursor-pointer border-[1px] border-solid border-[#02060c1f] rounded-xl hover:bg-orange-500"
+                  >
+                    <h2 className="truncate text-center text-base text-[#050e1bbf] tracking-tight font-medium">
+                      Show more
+                    </h2>
+                  </div>
+                )}
+                {bestPlacesOpen && (
+                  <>
+                    {bestPlaces.slice(11).map((x) => (
+                      <div
+                        className="w-[20%] flex-grow p-4 mx-2 mb-4 cursor-pointer border-[1px] border-solid border-[#02060c1f] rounded-xl"
+                        key={x.text}
+                      >
+                        <h2 className="truncate text-center text-base text-[#050e1bbf] tracking-tight font-medium">
+                          {x.text}
+                        </h2>
+                      </div>
+                    ))}
+                    <div
+                      onClick={handleLessPlaces}
+                      className="w-[20%] p-4 mx-auto mb-4 cursor-pointer border-[1px] border-solid border-[#02060c1f] rounded-xl hover:bg-orange-200"
+                    >
+                      <h2 className="truncate text-center text-base text-[#050e1bbf] tracking-tight font-medium">
+                        Show less
+                      </h2>
+                    </div>
+                  </>
+                )}
+              </div>
+            </>
+          )}
         </>
       )}
     </div>

@@ -141,7 +141,7 @@ const useRestaurantData = () => {
       setAppInstallLinks(...appInstallLinksData);
       setFooterCities(...footerCitiesData);
       setBestPlaces(...bestPlacesData);
-      setBestCuiNearMe(...bestCuiNearMe);
+      setBestCuiNearMe(...bestCuiNearMeData);
       setExpResNearMe(...expResNearMeData);
       setNotServicable(...notDeliverable);
     } catch (err) {

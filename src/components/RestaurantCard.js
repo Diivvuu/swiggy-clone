@@ -36,7 +36,7 @@ const RestaurantCard = ({
       </div>
 
       <div className="px-4 pt-2">
-        <h1 className="w-80 truncate text-2xl font-semibold" title={name}>
+        <h1 className="w-64 truncate text-[1.4rem] font-[700]" title={name}>
           {name}
         </h1>
 
