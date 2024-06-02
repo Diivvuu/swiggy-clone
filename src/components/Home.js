@@ -111,7 +111,7 @@ const Home = () => {
           <Unserviceable />
         </div>
       ) : (
-        <div className="body xl:max-w-[80%] mx-auto min-h-screen pt-8 ">
+        <div className="body xl:max-w-[80%] mx-auto min-h-screen pt-40 ">
           {WOYM && (
             <>
               <div className="flex justify-between mx-12 px-4">
