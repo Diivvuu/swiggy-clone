@@ -11,7 +11,7 @@ import Search from "./components/Search";
 import Help from "./components/Help";
 import SignIn from "./components/SignIn";
 import Cart from "./components/Cart";
-
+import Clone from "./components/Clone";
 const AppLayout = () => {
   return (
     <div>
@@ -50,6 +50,10 @@ const appRouter = createBrowserRouter([
       {
         path: "cart",
         element: <Cart />,
+      },
+      {
+        path: "clone",
+        element: <Clone />,
       },
     ],
   },

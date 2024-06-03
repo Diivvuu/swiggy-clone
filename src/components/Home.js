@@ -33,7 +33,7 @@ const Home = () => {
   const locationSearchVisibility = useSelector(
     (store) => store.locSearch.visible
   );
-  console.log(appInstallLinks);
+  console.log(resList);
   const [city, setCity] = useState(locDetails[0]?.district);
   const [sortActive, setSortActive] = useState(undefined);
   const [bestPlacesOpen, setBestPlacesOpen] = useState(false);
