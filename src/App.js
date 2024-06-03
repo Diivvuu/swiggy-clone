@@ -7,6 +7,10 @@ import store from "./Utils/store";
 import Home from "./components/Home";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import Search from "./components/Search";
+import Help from "./components/Help";
+import SignIn from "./components/SignIn";
+import Cart from "./components/Cart";
 
 const AppLayout = () => {
   return (
@@ -29,6 +33,23 @@ const appRouter = createBrowserRouter([
       {
         path: "contact", // Use relative path for nested routes
         element: <Contact />,
+      },
+      {
+        path: "search",
+        element: <Search />,
+      },
+      {
+        path: "help",
+        element: <Help />,
+      },
+
+      {
+        path: "profile",
+        element: <SignIn />,
+      },
+      {
+        path: "cart",
+        element: <Cart />,
       },
     ],
   },
