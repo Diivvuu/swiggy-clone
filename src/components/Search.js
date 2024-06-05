@@ -1,9 +1,15 @@
-import React, { useState, useEffect } from "react";
-import useRestaurantData from "../Hooks/useRestaurantData";
-import usePopularCuisinesData from "../Hooks/usePopularCuisinesData";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from "react";
+import { shimmer_display_count } from "../helpers/Constant";
+import SearchCuisineShimmer from "./SearchCuisineShimmer";
+import { useState, useEffect } from "react";
 import { faSearch, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { IMG_CDN_URL, shimmer_display_count } from "../helpers/Constant";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import useRestaurantsData from "../Hooks/useRestaurantData";
+import RestaurantSearchCard from "./RestaurantSearchCard";
+import usePopularCuisinesData from "../Hooks/usePopularCuisinesData";
+import { IMG_CDN_URL } from "../helpers/Constant";
+// import RestaurantSearchCard from "./RestaurantSearchCard";
+import RestaurantCard from "./RestaurantCard";
 
 const Search = () => {
   const [
@@ -20,108 +26,121 @@ const Search = () => {
     bestCuiNearMe,
     expResNearMe,
     notServicable,
-  ] = useRestaurantData();
-  const [popularCuisines] = usePopularCuisinesData();
+  ] = useRestaurantsData();
+  // const [popularCuisines] = usePopularCuisinesData();
   const [searchText, setSearchText] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [ErrorMessage, setErrorMessage] = useState("");
   const [filteredSearchResList, setFilteredSearchResList] = useState([]);
-  console.log(resList); // Confirm that resList has the expected data structure
-
-  useEffect(() => {
-    if (searchText === "") {
-      setFilteredSearchResList([]);
-      setErrorMessage("");
-      return;
-    }
-
-    if (resList && resList.length > 0) {
-      const filteredData = resList.filter((res) =>
-        res?.info?.name?.toLowerCase()?.includes(searchText.toLowerCase())
-      );
-
-      setFilteredSearchResList(filteredData);
-      setErrorMessage("");
-      if (filteredData.length === 0) {
-        setErrorMessage(
-          `Sorry, we couldn't find any restaurants for "${searchText}"`
-        );
-      }
-    }
-  }, [searchText, resList]);
-
-  const handleCuisineClick = (text) => {
-    setSearchText(text);
-  };
-
+  // const popCuisines = popularCuisines.map(
+  //   (x) =>
+  //     (x.action.link = x.action.link
+  //       .replace("swiggy://explore?query=", "")
+  //       .replace("%20", " "))
+  // );
+  // window.scrollTo(0, 0);
+  // const handleCuisineClick = (text) => {
+  //   setSearchText(text);
+  // };
+  console.log(resList);
   const handleXClick = () => {
     if (searchText !== "") {
       setSearchText("");
     }
   };
-
+  const handleSearch = () => {
+    const filteredData = resList.filter(
+      (res) =>
+        res?.info?.name?.toLowerCase()?.includes(searchText?.toLowerCase()) ||
+        res?.info?.cuisines?.some((cuisine) =>
+          cuisine.toLowerCase().includes(searchText.toLowerCase())
+        )
+    );
+    setFilteredSearchResList(filteredData);
+    setErrorMessage("");
+    if (filteredData?.length === 0) {
+      setErrorMessage(
+        `Sorry, we couldn't find any results for "${searchText}"`
+      );
+    }
+  };
   const shimArr = Array(shimmer_display_count).fill("");
-
+  useEffect(() => {
+    handleSearch();
+  }, [searchText]);
   return (
-    <div className="pt-40">
-      <div>
+    <div className="pt-40 min-h-screen mx-auto w-[60%]">
+      <div className="px-2 flex items-center justify-start mx-auto w-full border-2 border-[text-[#686b78]] text-[#686b78]">
         <input
-          placeholder="Search for Restaurants"
+          type="text"
+          className="flex-1 px-3 py-3 focus:outline-none"
+          placeholder="Search for restaurants or cuisines"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
-        />
+          onKeyUp={handleSearch}
+        ></input>
         <FontAwesomeIcon
           icon={searchText === "" ? faSearch : faXmark}
-          onClick={handleXClick}
+          className="text-[#7e818d] py-2 pr-4 cursor-pointer"
+          onClick={() => {
+            handleXClick();
+          }}
         />
       </div>
-      <div>
+      <div className="mx-auto mt-10 w-full">
         {searchText === "" ? (
           <>
-            <h2>Popular Cuisines</h2>
-            {popularCuisines.length === 0 ? (
-              <div>
-                {shimArr.map((_, index) => (
-                  <p key={index}>SearchCuisinesShimmer</p>
-                ))}
+            {/*<h2 className="text-left font-black text-[#3d4152] mb-2 pl-2 pb-15 pt-5 text-2xl tracking-tighter leading-tight">
+              Popular Cuisines
+            </h2>
+             {popularCuisines.length === 0 ? (
+              <div className="flex overflow-hidden flex-start">
+                {shimArr?.map((e, index) => {
+                  return <SearchCuisineShimmer key={index} />;
+                })}
               </div>
             ) : (
-              <div>
-                {popularCuisines.map((img) => (
-                  <div
-                    key={img.imageId}
-                    onClick={() => handleCuisineClick(img.action.link)}
-                  >
-                    <img
-                      src={IMG_CDN_URL + img.imageId}
-                      alt={img.action.link}
-                    />
-                  </div>
-                ))}
+              <div className="container-snap flex overflow-x-auto h-36 flex-start">
+                {popularCuisines?.map((img) => {
+                  return (
+                    <div
+                      className="ml-1 cursor-pointer flex-shrink-0"
+                      key={img.imageId}
+                      onClick={() => {
+                        handleCuisineClick(img.action.link);
+                      }}
+                    >
+                      <img
+                        src={IMG_CDN_URL + img.imageId}
+                        className="h-full w-auto"
+                      />
+                    </div>
+                  );
+                })}
               </div>
-            )}
+            )} */}
           </>
         ) : (
           <div>
-            <div>
+            <div className="my-2 text-lg font-medium">
               Search Results for <strong>"{searchText}"</strong>
             </div>
             <div>
-              {filteredSearchResList.length > 0
-                ? filteredSearchResList.map((res) => (
-                    <div key={res.info.id}>
-                      {" "}
-                      {/* Ensure key is unique */}
-                      <p>Res Card</p>{" "}
-                      {/* Replace with actual Restaurant Card component */}
-                    </div>
-                  ))
-                : errorMessage && <div>{errorMessage}</div>}
+              {filteredSearchResList &&
+                filteredSearchResList?.map((res) => {
+                  return (
+                    <RestaurantSearchCard {...res.info} key={res.info.id} />
+                  );
+                })}
             </div>
+            {ErrorMessage && (
+              <div className="text-center mb-3 mt-5 text-xl bg-[#f2f6fc] py-6">
+                {ErrorMessage}
+              </div>
+            )}
           </div>
         )}
       </div>
     </div>
   );
 };
-
 export default Search;
