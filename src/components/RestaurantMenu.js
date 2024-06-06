@@ -9,7 +9,6 @@ import {
 } from "../helpers/Constant";
 import OfferSlider from "./OfferSlider";
 import OfferCard from "./OfferCard";
-import MenuCategory from "./MenuCategory";
 
 const RestaurantMenu = () => {
   const { id } = useParams();
@@ -98,13 +97,15 @@ const RestaurantMenu = () => {
             </div>
           </>
         )}
-        <p className="pt-4 text-center leading-loose">M E N U</p>
+        <p className="py-4 text-center leading-loose">M E N U</p>
         <div>
           {resMenu && (
             <>
               <div>
                 {resMenu?.map((category) => {
-                  return <MenuCategory {...category} key={{ ...category }.title} />;
+                  return (
+                    <h1>{category.title}</h1>
+                  );
                 })}
               </div>
             </>
