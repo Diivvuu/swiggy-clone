@@ -9,15 +9,16 @@ import {
 } from "../helpers/Constant";
 import OfferSlider from "./OfferSlider";
 import OfferCard from "./OfferCard";
+import MenuCategory from "./MenuCategory";
 
 const RestaurantMenu = () => {
   const { id } = useParams();
   const [resDetails, resOffers, resMenu] = useRestaurantMenu(id);
-  console.log(resOffers);
+  console.log(resMenu);
   return (
     <div className="flex justify-center pt-28 w-screen">
-      <div className="container text-left w-[50%]">
-        <h4 className="text-xs text-[#93959f]">
+      <div className="container w-[50%]">
+        <h4 className="text-xs text-left text-[#93959f]">
           Home/{resDetails?.city}/{resDetails?.name}
         </h4>
         <div className="mx-3">
@@ -97,6 +98,18 @@ const RestaurantMenu = () => {
             </div>
           </>
         )}
+        <p className="pt-4 text-center leading-loose">M E N U</p>
+        <div>
+          {resMenu && (
+            <>
+              <div>
+                {resMenu?.map((category) => {
+                  return <MenuCategory {...category} key={{ ...category }.title} />;
+                })}
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
