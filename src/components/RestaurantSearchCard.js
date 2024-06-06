@@ -8,7 +8,7 @@ const RestaurantSearchCard = ({ cloudinaryImageId, id, isOpen, name }) => {
   return (
     <div>
       <Link
-        to={isOpen ? "/restaurant" + id : ""}
+        to={isOpen ? "/restaurant/" + id : ""}
         key={id}
         className={`flex items-center h-24 w-auto hover:bg-[#f2f6fc] rounded-md ${
           isOpen ? "cursor-pointer" : "cursor-not-allowed"
