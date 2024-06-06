@@ -32,9 +32,15 @@ const useRestaurantMenu = (id) => {
               "type.googleapis.com/swiggy.gandalf.widgets.v2.GridWidget"
         )
         ?.card?.gridElements?.infoWithStyle?.offers?.map((x) => x?.info) || [];
-    const restaurantMenu = json?.data?.cards
-      ?.find((x) => x.groupedCard)
-      ?.groupedCard?.cardGroupMap?.REGULAR?.cards?.map((x) => x?.card?.card);
+    const restaurantMenu =
+      json?.data?.cards
+        ?.find((x) => x.groupedCard)
+        ?.groupedCard?.cardGroupMap?.REGULAR?.cards?.map((x) => x?.card?.card)
+        .filter(
+          (x) =>
+            x["@type"] ===
+            "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+        ) || [];
     setResDetailse(restaurantData);
     setResOffers(restaurantOffers);
     setResMenu(restaurantMenu);

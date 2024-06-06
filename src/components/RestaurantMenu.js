@@ -9,10 +9,20 @@ import {
 } from "../helpers/Constant";
 import OfferSlider from "./OfferSlider";
 import OfferCard from "./OfferCard";
+import MenuCategory from "./MenuCategory";
 
 const RestaurantMenu = () => {
   const { id } = useParams();
   const [resDetails, resOffers, resMenu] = useRestaurantMenu(id);
+  const resDetailsData = {
+    id: resDetails?.id,
+    name: resDetails?.name,
+    areaName: resDetails?.areaName,
+    cloudinaryImageId: resDetails?.cloudinaryImageId,
+    slaString: resDetails?.sla?.slaString,
+    lastMileTravelString: resDetails?.sla?.lastMileTravelString,
+    deliveryFee: resDetails?.feeDetails?.totalFee,
+  };
   console.log(resMenu);
   return (
     <div className="flex justify-center pt-28 w-screen">
@@ -59,7 +69,11 @@ const RestaurantMenu = () => {
               </div>
               <hr className="border-t-1 border-gray-400 my-3" />
               <div className="flex items-center gap-1.5">
-                <img src={DELIVERY_DISTANCE_IMG} className="w-5" />
+                <img
+                  src={DELIVERY_DISTANCE_IMG}
+                  alt="DISTANCE"
+                  className="w-5"
+                />
                 <p
                   className="font-[500] text-[#848484]"
                   dangerouslySetInnerHTML={{
@@ -104,7 +118,11 @@ const RestaurantMenu = () => {
               <div>
                 {resMenu?.map((category) => {
                   return (
-                    <h1>{category.title}</h1>
+                    <MenuCategory
+                      {...category}
+                      key={{ ...category }.title}
+                      resDetailsData={resDetailsData}
+                    />
                   );
                 })}
               </div>
