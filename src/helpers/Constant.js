@@ -31,7 +31,8 @@ export const swiggySearchAPI = (lat, lng) => {
 export const REST_API_MENU_URL = (lat, lng) => {
   return `https://foodfire.onrender.com/api/menu?page-type=REGULAR_MENU&complete-menu=true&lat=${lat}&lng=${lng}&restaurantId=`;
 };
-
+export const DELIVERY_DISTANCE_IMG =
+  "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_40,h_40/v1648635511/Delivery_fee_new_cjxumu";
 export const footer_content = [
   {
     id: "100",
