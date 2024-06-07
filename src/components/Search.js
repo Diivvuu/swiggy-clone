@@ -41,32 +41,52 @@ const Search = () => {
   // const handleCuisineClick = (text) => {
   //   setSearchText(text);
   // };
-  console.log(resList);
+  console.log(topResList);
   const handleXClick = () => {
     if (searchText !== "") {
       setSearchText("");
     }
   };
   const handleSearch = () => {
-    const filteredData = resList.filter(
+    const searchLower = searchText.toLowerCase();
+
+    const filteredDataResList = resList.filter(
       (res) =>
-        res?.info?.name?.toLowerCase()?.includes(searchText?.toLowerCase()) ||
+        res?.info?.name?.toLowerCase()?.includes(searchLower) ||
         res?.info?.cuisines?.some((cuisine) =>
-          cuisine.toLowerCase().includes(searchText.toLowerCase())
+          cuisine.toLowerCase().includes(searchLower)
         )
     );
-    setFilteredSearchResList(filteredData);
+
+    const filteredDataTopResList = topResList.filter(
+      (res) =>
+        res?.info?.name?.toLowerCase()?.includes(searchLower) ||
+        res?.info?.cuisines?.some((cuisine) =>
+          cuisine.toLowerCase().includes(searchLower)
+        )
+    );
+
+    const combinedFilteredData = [...filteredDataResList, ...filteredDataTopResList];
+
+    // Remove duplicates based on unique restaurant IDs
+    const uniqueFilteredData = combinedFilteredData.filter(
+      (res, index, self) => index === self.findIndex((r) => r.info.id === res.info.id)
+    );
+
+    setFilteredSearchResList(uniqueFilteredData);
     setErrorMessage("");
-    if (filteredData?.length === 0) {
+    if (uniqueFilteredData?.length === 0) {
       setErrorMessage(
         `Sorry, we couldn't find any results for "${searchText}"`
       );
     }
   };
+
   const shimArr = Array(shimmer_display_count).fill("");
   useEffect(() => {
     handleSearch();
   }, [searchText]);
+
   return (
     <div className="pt-40 min-h-screen mx-auto w-[60%]">
       <div className="px-2 flex items-center justify-start mx-auto w-full border-2 border-[text-[#686b78]] text-[#686b78]">
