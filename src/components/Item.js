@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { MENU_ITEM_CDN_URL } from "../helpers/Constant";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle, faPlay, faStar } from "@fortawesome/free-solid-svg-icons";
 import { PiShootingStarFill } from "react-icons/pi";
 import { MdLocalOffer } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+import MyContext from "../Utils/MyContext";
+import { addItems, removeItems } from "../Utils/cartSlice";
 
 const Item = ({
   name,
@@ -17,9 +20,39 @@ const Item = ({
   offerTags,
   ratings,
   ribbon,
+  resDetailsData,
+  isVeg,
 }) => {
-  console.log(ratings);
-
+  const dispatch = useDispatch();
+  const cartDetails = useSelector((store) => store.cart.cartItems);
+  const context = useContext(MyContext);
+  const [isPresent, setIsPresent] = useState(-1);
+  const [quantity, setQuantity] = useState(0);
+  const handleAddItem = () => {
+    dispatch(
+      addItems({ id, name, isVeg, price, defaultPrice, resDetailsData })
+    );
+  };
+  const handleRemoveItem = () => {
+    dispatch(
+      removeItems({ id, name, isVeg, price, defaultPrice, resDetailsData })
+    );
+  };
+  const handleResCartChange = () => {
+    context.showResCartAlert();
+  };
+  const handleExistingItem = () => {
+    const existingItemIndex = cartDetails.findIndex((item) => {
+      return item.id === id;
+    });
+    setIsPresent(existingItemIndex > -1);
+    setQuantity(
+      existingItemIndex > -1 ? cartDetails[existingItemIndex].quantity : 0
+    );
+  };
+  useEffect(() => {
+    handleExistingItem();
+  }, [cartDetails]);
   return (
     <div className="px-4 border-b-solid border-b-[1px] py-8">
       <div className="flex justify-between items-center">
@@ -83,17 +116,58 @@ const Item = ({
           {!imageId ? (
             <></>
           ) : (
-            <div className="relative flex flex-col items-center">
-              <img
-                src={MENU_ITEM_CDN_URL + imageId}
-                alt={name}
-                className="w-40 h-36 rounded-2xl object-cover z-0"
-              />
-              <div className="absolute text-[#1ba672] bg-white font-bold w-28 h-12 z-10 -bottom-4 text-lg shadow-xl rounded-xl flex items-center justify-center">
+            <>
+              <div className="relative flex flex-col items-center">
+                <img
+                  src={MENU_ITEM_CDN_URL + imageId}
+                  alt={name}
+                  className="w-40 h-36 rounded-2xl object-cover z-0"
+                />
+              </div>
+            </>
+          )}
+          <div className="relative text-[#1ba672] bg-white font-bold w-28 h-12 z-10 bottom-8 text-lg shadow-xl rounded-xl flex items-center justify-center">
+            {!isPresent || quantity <= 0 ? (
+              <div
+                className="text-[#60b246] flex justify-center items-center h-full text-center"
+                onClick={() => {
+                  if (cartDetails.length === 0) {
+                    handleAddItem();
+                  } else if (
+                    cartDetails[0]?.resDetailsData?.id !== resDetailsData?.id
+                  ) {
+                    handleResCartChange();
+                  } else {
+                    handleAddItem();
+                  }
+                }}
+              >
                 ADD
               </div>
-            </div>
-          )}
+            ) : (
+              <div className="flex justify-center align-center gap-2 items-center">
+                <div
+                  className="font-bold flex-1 text-[#3e4152] cursor-pointer text-center text-2xl"
+                  onClick={() => {
+                    handleRemoveItem();
+                  }}
+                >
+                  -
+                </div>
+                <div className="font-bold flex-1 text-[#60b246] text-xl text-center">
+                  {quantity}
+                </div>
+                <div
+                  className="font-bold flex-1 text-[#60b246] cursor-pointer text-center text-2xl"
+                  onClick={() => {
+                    handleAddItem();
+                  }}
+                >
+                  +
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -10,6 +10,7 @@ import { Link, NavLink } from "react-router-dom";
 const Header = () => {
   const dispatch = useDispatch();
   const locDetails = useSelector((store) => store.location.locationDetails);
+  const cartItemCount = useSelector((store) => store.cart.cartItems);
   const [area, setArea] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
@@ -58,7 +59,7 @@ const Header = () => {
         )}
       </div>
       <div
-        className={`header flex items-center justify-around z-10 fixed w-screen top-0 left-0 right-0 shadow-[0_15px_40px_-20px_rgba(40,44,63,0.15)] bg-[#edf7f9] ${
+        className={`header flex items-center justify-around z-20 fixed w-screen top-0 left-0 right-0 shadow-[0_15px_40px_-20px_rgba(40,44,63,0.15)] bg-[#edf7f9] ${
           locationsearchIsVisible ? "opacity-50 bg-transparent" : ""
         }`}
         onClick={() => {
@@ -203,15 +204,39 @@ const Header = () => {
                 to="/cart"
               >
                 <span className="flex items-center justify-center truncate">
-                  <svg
-                    className="stroke-2 fill-transparent stroke-current overflow-hidden"
-                    viewBox="-1 0 37 32"
-                    height="20"
-                    width="20"
-                    fill="#686b78"
-                  >
-                    <path d="M4.438 0l-2.598 5.11-1.84 26.124h34.909l-1.906-26.124-2.597-5.11z"></path>
-                  </svg>
+                  {cartItemCount.length === 0 ? (
+                    <>
+                      <span className="relative top-1/2">
+                        <svg
+                          className="stroke-2 fill-transparent stroke-current overflow-hidden"
+                          viewBox="-1 0 37 32"
+                          height="20"
+                          width="20"
+                          fill="#686b78"
+                        >
+                          <path d="M4.438 0l-2.598 5.11-1.84 26.124h34.909l-1.906-26.124-2.597-5.11z"></path>
+                        </svg>
+                        <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-sm font-semibold">
+                          {cartItemCount.length}
+                        </span>
+                      </span>
+                    </>
+                  ) : (
+                    <span className="relative top-1/2">
+                      <svg
+                        className="stroke-2 fill-transparent stroke-current overflow-hidden"
+                        viewBox="-1 0 37 32"
+                        height="20"
+                        width="20"
+                        fill="#686b78"
+                      >
+                        <path d="M4.438 0l-2.598 5.11-1.84 26.124h34.909l-1.906-26.124-2.597-5.11z"></path>
+                      </svg>
+                      <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-sm font-semibold">
+                        {cartItemCount.length}
+                      </span>
+                    </span>
+                  )}
                   &nbsp; <h2>Cart</h2>
                 </span>
               </NavLink>
