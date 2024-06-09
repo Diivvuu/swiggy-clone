@@ -23,7 +23,7 @@ const RestaurantMenu = () => {
     lastMileTravelString: resDetails?.sla?.lastMileTravelString,
     deliveryFee: resDetails?.feeDetails?.totalFee,
   };
-  console.log(resMenu);
+  // console.log(resMenu);
   return (
     <div className="flex justify-center pt-28 w-screen">
       <div className="container w-[50%]">
