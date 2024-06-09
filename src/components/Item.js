@@ -79,21 +79,22 @@ const Item = ({
           )}
           <h3>{description}</h3>
         </div>
-        {imageId ? (
-          <div>
-            <img
-              src={MENU_ITEM_CDN_URL + imageId}
-              alt={name}
-              className="w-40 h-36 rounded-2xl object-cover"
-            />
-          </div>
-        ) : (
-          <div className="flex justify-between align-center items-center">
-            <button className="text-[#1ba672] text-xl font-bold rounded-lg border-[1px] py-2 px-6 shadow-xl mr-6">
-              ADD
-            </button>
-          </div>
-        )}
+        <div className="flex flex-col items-center justify-center">
+          {!imageId ? (
+            <></>
+          ) : (
+            <div className="relative flex flex-col items-center">
+              <img
+                src={MENU_ITEM_CDN_URL + imageId}
+                alt={name}
+                className="w-40 h-36 rounded-2xl object-cover z-0"
+              />
+              <div className="absolute text-[#1ba672] bg-white font-bold w-28 h-12 z-10 -bottom-4 text-lg shadow-xl rounded-xl flex items-center justify-center">
+                ADD
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
