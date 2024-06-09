@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import useRestaurantMenu from "../Hooks/useRestaurantMenu";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import {
   DELIVERY_DISTANCE_IMG,
   MENU_OFFERS_CDN_URL,
@@ -10,10 +10,12 @@ import {
 import OfferSlider from "./OfferSlider";
 import OfferCard from "./OfferCard";
 import MenuCategory from "./MenuCategory";
+import MenuSearch from "./MenuSearch";
 
 const RestaurantMenu = () => {
   const { id } = useParams();
   const [resDetails, resOffers, resMenu] = useRestaurantMenu(id);
+  const [activeLink, setActiveLink] = useState(null);
   const resDetailsData = {
     id: resDetails?.id,
     name: resDetails?.name,
@@ -23,6 +25,17 @@ const RestaurantMenu = () => {
     lastMileTravelString: resDetails?.sla?.lastMileTravelString,
     deliveryFee: resDetails?.feeDetails?.totalFee,
   };
+  // const handleNavClick = (path) => {
+  //   setActiveLink(path);
+  //   window.scrollTo({
+  //     top: 0,
+  //     left: 0,
+  //     behavior: "smooth",
+  //   });
+  // };
+  // const isActive = (path) => {
+  //   return path === activeLink;
+  // };
   // console.log(resMenu);
   return (
     <div className="flex justify-center pt-28 w-screen">
@@ -112,6 +125,9 @@ const RestaurantMenu = () => {
           </>
         )}
         <p className="py-4 text-center leading-loose">M E N U</p>
+        <div>
+          <Link to={"/menusearch/" + id}>Search</Link>
+        </div>
         <div>
           {resMenu && (
             <>

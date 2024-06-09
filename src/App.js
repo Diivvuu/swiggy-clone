@@ -13,6 +13,7 @@ import SignIn from "./components/SignIn";
 import Cart from "./components/Cart";
 import Clone from "./components/Clone";
 import RestaurantMenu from "./components/RestaurantMenu";
+import MenuSearch from "./components/MenuSearch";
 const AppLayout = () => {
   return (
     <div>
@@ -55,6 +56,10 @@ const appRouter = createBrowserRouter([
       {
         path: "restaurant/:id",
         element: <RestaurantMenu />,
+      },
+      {
+        path: "menusearch/:id",
+        element: <MenuSearch />,
       },
     ],
   },

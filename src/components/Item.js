@@ -21,7 +21,7 @@ const Item = ({
   console.log(ratings);
 
   return (
-    <div className="px-12 border-[5px] rounded-2xl">
+    <div className="px-4 border-b-solid border-b-[1px] py-8">
       <div className="flex justify-between items-center">
         <div className="flex flex-col w-[60%]">
           {itemAttribute && (
@@ -61,24 +61,39 @@ const Item = ({
               </>
             )}
           </h2>
-          <div className="flex items-center gap-1">
-            <FontAwesomeIcon icon={faStar} className="text-[#116649] text-sm" />
-            <h3 className="font-semibold text-md text-[#116649]">
-              {ratings && ratings.aggregatedRating.rating}
-            </h3>
-            <h3 className="text-xs text-[#676a6d] font-bold">
-              ({ratings.aggregatedRating.ratingCountV2})
-            </h3>
-          </div>
+          {ratings.aggregatedRating.ratingCountV2 && (
+            <>
+              <div className="flex items-center gap-2">
+                <FontAwesomeIcon
+                  icon={faStar}
+                  className="text-[#116649] text-sm"
+                />
+                <h3 className="font-semibold text-md text-[#116649]">
+                  {ratings && ratings.aggregatedRating.rating}
+                </h3>
+                <h3 className="text-sm text-[#676a6d] font-bold">
+                  ({ratings.aggregatedRating.ratingCountV2})
+                </h3>
+              </div>
+            </>
+          )}
           <h3>{description}</h3>
         </div>
-        <div>
-          <img
-            src={MENU_ITEM_CDN_URL + imageId}
-            alt={name}
-            className="w-40 h-36 rounded-2xl"
-          />
-        </div>
+        {imageId ? (
+          <div>
+            <img
+              src={MENU_ITEM_CDN_URL + imageId}
+              alt={name}
+              className="w-40 h-36 rounded-2xl object-cover"
+            />
+          </div>
+        ) : (
+          <div className="flex justify-between align-center items-center">
+            <button className="text-[#1ba672] text-xl font-bold rounded-lg border-[1px] py-2 px-6 shadow-xl mr-6">
+              ADD
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
