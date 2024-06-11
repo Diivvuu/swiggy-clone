@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faStar } from "@fortawesome/free-solid-svg-icons";
 import useRestaurantMenu from "../Hooks/useRestaurantMenu";
 import { useParams, Link } from "react-router-dom";
 import {
@@ -10,7 +10,7 @@ import {
 import OfferSlider from "./OfferSlider";
 import OfferCard from "./OfferCard";
 import MenuCategory from "./MenuCategory";
-import MenuSearch from "./MenuSearch";
+// import MenuSearch from "./MenuSearch";
 import { useSelector } from "react-redux";
 import MyContext from "../Utils/MyContext";
 import ResetCart from "./ResetCart";
@@ -28,28 +28,35 @@ const RestaurantMenu = () => {
     lastMileTravelString: resDetails?.sla?.lastMileTravelString,
     deliveryFee: resDetails?.feeDetails?.totalFee,
   };
+
   const locDetails = useSelector((store) => store.location.locationDetails);
-  const city = locDetails[0].district;
+  const city = locDetails?.[0]?.district || "";
   const [showElement, setShowElement] = useState(false);
   const [resCartAlert, setResCartAlert] = useState(false);
+
   const contextValue = {
     resCartAlert,
     showResCartAlert: () => {
-      setResCartAlert(true), setShowElement(false);
+      setResCartAlert(true);
+      setShowElement(false);
     },
     hideResCartAlert: () => {
-      setResCartAlert(false), setShowElement(true);
+      setResCartAlert(false);
+      setShowElement(true);
     },
   };
+
   useEffect(() => {
     window.scrollTo({
       top: 0,
       left: 0,
       behavior: "smooth",
     });
+
     const timeoutId = setTimeout(() => {
       setShowElement(true);
     }, 2000);
+
     return () => clearTimeout(timeoutId);
   }, []);
 
@@ -58,7 +65,7 @@ const RestaurantMenu = () => {
       <div className="flex justify-center pt-28 w-screen">
         <div className="container w-[50%]">
           <h4 className="text-xs text-left text-[#93959f]">
-            Home/{resDetails?.city}/{resDetails?.name}
+            Home/{city}/{resDetails?.name}
           </h4>
           <div className="mx-3">
             <h1 className="font-[700] pt-8 text-2xl">{resDetails?.name}</h1>
@@ -76,7 +83,7 @@ const RestaurantMenu = () => {
                   </h2>
                 </div>
                 <div className="mt-2 text-[#f26618] font-[600]">
-                  {resDetails?.cuisines.join(", ")}
+                  {resDetails?.cuisines?.join(", ")}
                 </div>
                 <div className="flex gap-3 items-center mt-2">
                   <div className="flex flex-col justify-center items-center">
@@ -128,42 +135,43 @@ const RestaurantMenu = () => {
                 />
               </div>
               <div className="offerSlider container-snap p-4 gap-x-8 flex mt-4 mb-2 overflow-x-auto">
-                {resOffers.map((offer, index) => {
-                  return (
-                    <OfferCard
-                      key={index} // It's better to use a unique key for each item in the array
-                      offerLogo={offer.offerLogo}
-                      header={offer.header}
-                      couponCode={offer.couponCode}
-                    />
-                  );
-                })}
+                {resOffers.map((offer, index) => (
+                  <OfferCard
+                    key={index} // It's better to use a unique key for each item in the array
+                    offerLogo={offer.offerLogo}
+                    header={offer.header}
+                    couponCode={offer.couponCode}
+                  />
+                ))}
               </div>
             </>
           )}
           <p className="py-4 text-center leading-loose">M E N U</p>
-          <div>
-            <Link to={"/menusearch/" + id}>Search</Link>
-          </div>
+          {/* <div>
+            <Link to={`/menusearch/${id}`}>
+              <div className="flex items-center justify-center bg-[#f0f0f5] text-[#616469] py-2 rounded-xl px-4 relative">
+                <h3 className="text-lg font-bold">Search for dishes</h3>
+                <FontAwesomeIcon icon={faSearch} className="absolute right-4" />
+              </div>
+            </Link>
+          </div> */}
           <div>
             {resMenu && (
               <>
                 <div>
-                  {resMenu?.map((category) => {
-                    return (
-                      <MenuCategory
-                        {...category}
-                        key={{ ...category }.title}
-                        resDetailsData={resDetailsData}
-                      />
-                    );
-                  })}
+                  {resMenu?.map((category) => (
+                    <MenuCategory
+                      {...category}
+                      key={category.title}
+                      resDetailsData={resDetailsData}
+                    />
+                  ))}
                 </div>
               </>
             )}
           </div>
         </div>
-        {resCartAlert ? <ResetCart /> : <></>}
+        {resCartAlert ? <ResetCart /> : null}
       </div>
     </MyContext.Provider>
   );

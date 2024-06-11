@@ -15,9 +15,9 @@ const Search = () => {
   const [
     topicalBanner,
     wOYM,
-    topResList,
+    topResList = [],
     sort,
-    resList,
+    resList = [],
     filteredResList,
     setFilteredResList,
     appInstallLinks,
@@ -66,11 +66,15 @@ const Search = () => {
         )
     );
 
-    const combinedFilteredData = [...filteredDataResList, ...filteredDataTopResList];
+    const combinedFilteredData = [
+      ...filteredDataResList,
+      ...filteredDataTopResList,
+    ];
 
     // Remove duplicates based on unique restaurant IDs
     const uniqueFilteredData = combinedFilteredData.filter(
-      (res, index, self) => index === self.findIndex((r) => r.info.id === res.info.id)
+      (res, index, self) =>
+        index === self.findIndex((r) => r.info.id === res.info.id)
     );
 
     setFilteredSearchResList(uniqueFilteredData);

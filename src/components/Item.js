@@ -45,10 +45,8 @@ const Item = ({
     const existingItemIndex = cartDetails.findIndex((item) => {
       return item.id === id;
     });
-    setIsPresent(existingItemIndex > -1);
-    setQuantity(
-      existingItemIndex > -1 ? cartDetails[existingItemIndex].quantity : 0
-    );
+    setIsPresent(existingItemIndex >= 0);
+    setQuantity(cartDetails[existingItemIndex]?.quantity);
   };
   useEffect(() => {
     handleExistingItem();
@@ -126,8 +124,8 @@ const Item = ({
               </div>
             </>
           )}
-          <div className="relative text-[#1ba672] bg-white font-bold w-28 h-12 z-10 bottom-8 text-lg shadow-xl rounded-xl flex items-center justify-center">
-            {!isPresent || quantity <= 0 ? (
+          {!isPresent || quantity <= 0 ? (
+            <div className="relative text-[#1ba672] bg-white font-bold w-[7.5rem] h-[2.5rem] z-10 bottom-8 text-lg shadow-xl rounded-xl flex items-center justify-center hover:bg-slate-200">
               <div
                 className="text-[#60b246] flex justify-center items-center h-full text-center"
                 onClick={() => {
@@ -144,30 +142,30 @@ const Item = ({
               >
                 ADD
               </div>
-            ) : (
-              <div className="flex justify-center align-center gap-2 items-center">
-                <div
-                  className="font-bold flex-1 text-[#3e4152] cursor-pointer text-center text-2xl"
-                  onClick={() => {
-                    handleRemoveItem();
-                  }}
-                >
-                  -
-                </div>
-                <div className="font-bold flex-1 text-[#60b246] text-xl text-center">
-                  {quantity}
-                </div>
-                <div
-                  className="font-bold flex-1 text-[#60b246] cursor-pointer text-center text-2xl"
-                  onClick={() => {
-                    handleAddItem();
-                  }}
-                >
-                  +
-                </div>
+            </div>
+          ) : (
+            <div className="relative text-[#1ba672] font-bold flex justify-center items-center bottom-8 z-10 bg-white text-lg rounded-xl select-none">
+              <div
+                className="flex items-center justify-center w-[2.5rem] h-[2.5rem] text-center shadow-xl hover:bg-slate-200 rounded-l-xl"
+                onClick={() => {
+                  handleRemoveItem();
+                }}
+              >
+                -
               </div>
-            )}
-          </div>
+              <div className="flex items-center justify-center w-[2.5rem] h-[2.5rem] text-center shadow-xl">
+                {quantity}
+              </div>
+              <div
+                className="flex items-center justify-center w-[2.5rem] h-[2.5rem] text-center shadow-xl hover:bg-slate-200 rounded-r-xl"
+                onClick={() => {
+                  handleAddItem();
+                }}
+              >
+                +
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

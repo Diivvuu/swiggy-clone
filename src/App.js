@@ -16,10 +16,10 @@ import RestaurantMenu from "./components/RestaurantMenu";
 import MenuSearch from "./components/MenuSearch";
 const AppLayout = () => {
   return (
-    <div>
+    <Provider store={store}>
       <Header />
       <Outlet />
-    </div>
+    </Provider>
   );
 };
 
