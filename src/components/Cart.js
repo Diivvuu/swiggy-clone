@@ -80,80 +80,61 @@ const Cart = () => {
       <Success />
     </div>
   ) : (
-    <div className="flex flex-col mt-20 bg-[#e9ecee] min-h-screen">
-      <div className="flex mx-auto mt-4 xl:w-[85%]">
-        <div className="p-8 mb-5 bg-white w-full flex">
+    <div className="pt-8">
+      <div className="flex flex-col mt-20 bg-[#e9ecee] min-h-screen">
+        <div className="flex mx-auto mt-4 xl: w-[85%]">
           <div className="flex-col flex-1 my-4 ml-8">
-            <div className="relative right-16 bg-[#282c3f] h-fit text-white p-2 shadow-[0px_3px_5px_0px_#282c3f66]">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-6 h-6"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#ffffff"
-              >
-                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
-            </div>
-            <div className="-ml-4 flex-1">
-              {confirmAddress ? (
-                <>
-                  <div className="flex-col">
-                    <div className="flex justify-between items-center mb-6">
-                      <div className="flex">
-                        <h2>Delivery Address</h2>
-                      </div>
-                    </div>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div>
-                    <h2 className="text-base text-[#282c3f] font-semibold tracking-tight">
-                      Choose a delivery address
-                    </h2>
-                    <h2 className="text-sm text-[#7f828f]">
-                      &nbsp; To place the order now, add your address details
-                    </h2>
-                  </div>
-                  <div className="border border-dashed mt-6">
-                    <div className="mr-2">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="w-5 h-5"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="#282c3f"
-                      >
-                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                        <circle cx="12" cy="10" r="3" />
-                      </svg>
-                      <div className="relative flex -top-[25px] -right-[10px] rounded-full items-center justify-center w-3 h-3 bg-[#60b246] text-white text-xs">
-                        +
-                      </div>
-                    </div>
-                    <div>
-                      <h3>Add new Address</h3>
-                      <h3>
-                        {area}, {cityName}, {state}
-                      </h3>
-                      <div className="bg-[#60b246] w-fit mt-4 mb-4 py-2 px-4 border-[#60b246] border-solid ">
+            <div className="p-8 mb-5 bg-white w-full flex">
+              <div className="relative bg-[#282c3f] h-fit right-12 p-2 shadow-[0px_3px_5px_0px_#282c3f66]">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-6 h-6"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#ffffff"
+                >
+                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+              </div>
+              <div className="-ml-4 flex-1">
+                {confirmAddress ? (
+                  <>
+                    <div className="flex-col">
+                      <div className="flex justify-between items-center mb-8">
+                        <div className="flex">
+                          <h2 className="text-base self-center text-[#282c3f] font-semibold  pr-3">
+                            Delivery Address
+                          </h2>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-6 w-6"
+                            viewBox="0 0 24 24"
+                            fill="#60b246"
+                            stroke="#fff"
+                          >
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="m9 12 2 2 4-5" />
+                          </svg>
+                        </div>
                         <h2
-                          className="text-sm font-extrabold leading-4 text-[#fff]"
-                          onClick={() => {
-                            handleConfirmAddress();
-                          }}
+                          className="text-[#f3730a] font-semibold text-sm"
+                          onClick={() => handleConfirmAddress()}
                         >
-                          DELIVER HERE
+                          CHANGE
                         </h2>
                       </div>
                     </div>
-                  </div>
-                </>
-              )}
+                  </>
+                ) : (
+                  <></>
+                )}
+              </div>
             </div>
           </div>
+        </div>
+        <div className="flex-col ml-5 my-4 max-w-[35%]">
+          <div className="flex-col pb-5 bg-white w-full h-fit"> </div>
         </div>
       </div>
     </div>
