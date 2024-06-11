@@ -206,9 +206,9 @@ const Header = () => {
                 <span className="flex items-center justify-center truncate">
                   {cartItemCount.length === 0 ? (
                     <>
-                      <span className="relative top-1/2">
+                      <span className="relative top-1/2 group">
                         <svg
-                          className="stroke-2 fill-transparent stroke-current overflow-hidden"
+                          className="stroke-2 fill-transparent stroke-current overflow-hidden group-hover:text-white"
                           viewBox="-1 0 37 32"
                           height="20"
                           width="20"
@@ -216,7 +216,7 @@ const Header = () => {
                         >
                           <path d="M4.438 0l-2.598 5.11-1.84 26.124h34.909l-1.906-26.124-2.597-5.11z"></path>
                         </svg>
-                        <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-sm font-semibold">
+                        <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[#f3730a] text-sm font-semibold group-hover:text-white">
                           {cartItemCount.length}
                         </span>
                       </span>
@@ -224,7 +224,11 @@ const Header = () => {
                   ) : (
                     <span className="relative top-1/2">
                       <svg
-                        className="stroke-2 fill-transparent stroke-current overflow-hidden"
+                        className={`stroke-2 overflow-hidden ${
+                          isActive("/cart")
+                            ? "fill-[#f3730a] stroke-[#f3730a]"
+                            : "fill-[#f3730a] stroke-[#f3730a]"
+                        }`}
                         viewBox="-1 0 37 32"
                         height="20"
                         width="20"
@@ -232,7 +236,7 @@ const Header = () => {
                       >
                         <path d="M4.438 0l-2.598 5.11-1.84 26.124h34.909l-1.906-26.124-2.597-5.11z"></path>
                       </svg>
-                      <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-sm font-semibold">
+                      <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-sm font-semibold text-white">
                         {cartItemCount.length}
                       </span>
                     </span>
