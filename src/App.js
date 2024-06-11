@@ -1,19 +1,16 @@
-// App.js
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { Outlet, createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
 import Header from "./components/Header";
 import store from "./Utils/store";
 import Home from "./components/Home";
 import Contact from "./components/Contact";
-import Footer from "./components/Footer";
 import Search from "./components/Search";
-import Help from "./components/Help";
 import SignIn from "./components/SignIn";
 import Cart from "./components/Cart";
-import Clone from "./components/Clone";
 import RestaurantMenu from "./components/RestaurantMenu";
 import MenuSearch from "./components/MenuSearch";
+const Help = lazy(() => import("./components/Help"));
 const AppLayout = () => {
   return (
     <Provider store={store}>
@@ -42,7 +39,11 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "help",
-        element: <Help />,
+        element: (
+          <Suspense>
+            <Help />
+          </Suspense>
+        ),
       },
 
       {

@@ -5,12 +5,12 @@ const locationSlice = createSlice({
   initialState: {
     locationDetails: [
       {
-        pincode: 530028,
-        area: "Simhachalam",
-        lat: 17.771678,
-        lng: 83.245248,
-        district: "Visakhapatnam",
-        state: "Andhra Pradesh",
+        pincode: 400001,
+        area: "Bazargate",
+        lat: 18.9486,
+        lng: 72.83662,
+        district: "Mumbai",
+        state: "Maharashtra",
       },
     ],
   },

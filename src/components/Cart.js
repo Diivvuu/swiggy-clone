@@ -90,7 +90,7 @@ const Cart = () => {
       <Success />
     </div>
   ) : (
-    <div className="flex flex-col mt-20 bg-[#e9ecee] min-h-screen">
+    <div className="flex flex-col mt-28 bg-[#e9ecee] min-h-screen">
       <div className="flex mx-auto mt-4 xl:w-[80%]">
         <div className="flex-col flex-1 my-4 ml-8 mr-4">
           <div className="p-8 mb-5 bg-white w-full flex">
