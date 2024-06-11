@@ -14,6 +14,7 @@ import MenuCategory from "./MenuCategory";
 import { useSelector } from "react-redux";
 import MyContext from "../Utils/MyContext";
 import ResetCart from "./ResetCart";
+import RestaurantMenuShimmering from "./RestaurantMenuShimmering";
 
 const RestaurantMenu = () => {
   const { id } = useParams();
@@ -60,7 +61,11 @@ const RestaurantMenu = () => {
     return () => clearTimeout(timeoutId);
   }, []);
 
-  return (
+  return resOffers.length === 0 ? (
+    <>
+      <RestaurantMenuShimmering />
+    </>
+  ) : (
     <MyContext.Provider value={contextValue}>
       <div className="flex justify-center pt-28 w-screen">
         <div className="container w-[50%]">
@@ -148,13 +153,13 @@ const RestaurantMenu = () => {
           )}
           <p className="py-4 text-center leading-loose">M E N U</p>
           {/* <div>
-            <Link to={`/menusearch/${id}`}>
-              <div className="flex items-center justify-center bg-[#f0f0f5] text-[#616469] py-2 rounded-xl px-4 relative">
-                <h3 className="text-lg font-bold">Search for dishes</h3>
-                <FontAwesomeIcon icon={faSearch} className="absolute right-4" />
-              </div>
-            </Link>
-          </div> */}
+          <Link to={`/menusearch/${id}`}>
+            <div className="flex items-center justify-center bg-[#f0f0f5] text-[#616469] py-2 rounded-xl px-4 relative">
+              <h3 className="text-lg font-bold">Search for dishes</h3>
+              <FontAwesomeIcon icon={faSearch} className="absolute right-4" />
+            </div>
+          </Link>
+        </div> */}
           <div>
             {resMenu && (
               <>

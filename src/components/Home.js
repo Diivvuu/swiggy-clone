@@ -11,6 +11,7 @@ import { RiArrowDownSLine, RiArrowUpSLine } from "react-icons/ri";
 import { RiArrowDropUpLine } from "react-icons/ri";
 import Footer from "./Footer";
 import Unserviceable from "./Unserviceable";
+import HomeShimmer from "./HomeShimmer";
 
 const Home = () => {
   const [
@@ -103,7 +104,9 @@ const Home = () => {
   };
 
   return resList?.length === 0 ? (
-    <h1>Shimmering</h1>
+    <h1>
+      <HomeShimmer />
+    </h1>
   ) : (
     <>
       {notServicable !== undefined ? (
