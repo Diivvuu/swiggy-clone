@@ -1,9 +1,13 @@
 import React from "react";
-import FoodVillaTempImg from "../assets/FoodVillaTempLandingPage.png";
+import chef2doorlandingpage from "../assets/chef2doorlandingpage.png";
 const SignIn = () => {
   return (
     <div className="flex flex-col items-center justify-start min-h-screen mt-40 ">
-      <img src={FoodVillaTempImg} className="w-auto mt-2 h-[40vh] mb-3" />
+      <img
+        src={chef2doorlandingpage}
+        alt=""
+        className="w-auto mt-2 h-[40vh] mb-3"
+      />
       <h1 className="text-[#282c3f] font-extrabold text-2xl tracking-tighter leading-7">
         We're Cooking Something Delicious!
       </h1>

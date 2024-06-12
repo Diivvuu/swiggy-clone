@@ -132,7 +132,7 @@ const useRestaurantData = () => {
           return x?.brands;
         });
 
-      setTopicalBanner(...topicalBannerData);
+      // setTopicalBanner(...topicalBannerData);
       setWOYM(...WOYMData);
       setTopResList(...topResListData);
       setSort(...sortData);
@@ -160,7 +160,7 @@ const useRestaurantData = () => {
     }
   }, [locDetails]);
   return [
-    topicalBanner,
+    // topicalBanner,
     WOYM,
     topResList,
     sort,

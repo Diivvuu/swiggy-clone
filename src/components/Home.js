@@ -15,7 +15,7 @@ import HomeShimmer from "./HomeShimmer";
 
 const Home = () => {
   const [
-    topicalBanner,
+    // topicalBanner,
     WOYM,
     topResList,
     sort,
