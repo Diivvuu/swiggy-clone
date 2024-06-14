@@ -23,9 +23,9 @@ const RestaurantCard = ({
         key={id}
         className={`grid grid-flow-row justify-stretch h-auto transition-all ease-in delay-100 hover:scale-95 hover:origin-center ${
           isOpen ? "cursor-pointer" : "cursor-not-allowed"
-        }`}
+        } sm:w-72 lg:w-64`}
       >
-        <div className="relative w-72 h-48">
+        <div className="relative w-full h-48 sm:w-72 lg:h-40 lg:w-64">
           {cloudinaryImageId && (
             <img
               className="w-full h-full object-cover rounded-2xl"
@@ -47,7 +47,7 @@ const RestaurantCard = ({
         </div>
 
         <div className="px-4 pt-2">
-          <h1 className="w-64 truncate text-[1.4rem] font-[700]" title={name}>
+          <h1 className="w-64 truncate text-2xl font-extrabold" title={name}>
             {name}
           </h1>
 

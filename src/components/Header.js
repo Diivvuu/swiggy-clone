@@ -6,7 +6,6 @@ import LocationSearch from "./LocationSearch";
 import { useDispatch, useSelector } from "react-redux";
 import { locSearch } from "../Utils/locationSearchVisibilitySlice";
 import { Link, NavLink } from "react-router-dom";
-
 const Header = () => {
   const dispatch = useDispatch();
   const locDetails = useSelector((store) => store.location.locationDetails);
